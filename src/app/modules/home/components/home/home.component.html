@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid d-flex flex-row justify-content-between">
+    <a class="navbar-brand" href="#">EAC | Electrical Appliances Calculator</a>
+    <div>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#energyUsage" (click)="selectedMenu = 'energy-usage'">Energy Usage Calculator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Energy Saving Tips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#applCalc" (click)="selectedMenu = 'appliance-calc'">Appliance Calculator</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col">
+    <ngb-carousel>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="assets/images/carousel1.jpeg" alt="Random first slide" width="100%">
+        </div>
+        <div class="carousel-caption">
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="assets/images/carousel2.jpeg" alt="Random second slide" width="100%">
+        </div>
+        <div class="carousel-caption">
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="assets/images/carousel3.jpeg" alt="Random third slide" width="100%">
+        </div>
+        <div class="carousel-caption">
+          <h3>Third slide label</h3>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</div>
+
+<div class="row mt-5 justify-content-center pb-4">
+  <div class="col-md-8">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="card pointer" (click)="menuClicked('energy-usage', '#energyUsage')">
+          <div class="card-body">
+            <h5 class="card-title mb-0">Energy Usage Calculator</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-0">Energy Saving Tips</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card pointer" (click)="menuClicked('appliance-calc', '#applCalc')">
+          <div class="card-body">
+            <h5 class="card-title mb-0">Appliances Calculator</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-energy-usage-calc *ngIf="selectedMenu === 'energy-usage'" id="energyUsage"></app-energy-usage-calc>
+<app-appliance-calc *ngIf="selectedMenu === 'appliance-calc'" id="applCalc"></app-appliance-calc>

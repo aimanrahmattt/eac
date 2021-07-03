@@ -1,0 +1,545 @@
+<div class="row py-4 bg-light justify-content-center">
+  <div class="col-md-8">
+    <div class="row text-center">
+      <div class="col">
+        <h2>Energy Usage Calculator</h2>
+        <h5>Total Monthly Usage: <span class="text-success">{{ totalUsage | currency:'RM' }}</span></h5>
+      </div>
+    </div>
+
+    <form [formGroup]="energyUsageForm">
+      <div class="row mt-4">
+        <div class="col">
+
+          <h6>Step 1: Select House Type</h6>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mt-3">
+                <label for="houseType">House Type</label>
+                <select class="form-control" formControlName="houseType">
+                  <option value="">Please selection an option</option>
+                  <option value="terrace">Terrace</option>
+                  <option value="high-rise">High Rise Residential</option>
+                  <option value="semi-d">Semi D</option>
+                  <option value="bungalow">Bungalow</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <h6 class="mt-4">Step 2: Add Room (Count)</h6>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  Living Room
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('livingRoom')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="livingRoom">
+                  <button class="btn btn-link" (click)="addRoom('livingRoom')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row align-items-center mt-2">
+                <div class="col-6">
+                  Bathroom
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('bathroom')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="bathroom">
+                  <button class="btn btn-link" (click)="addRoom('bathroom')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row align-items-center mt-2">
+                <div class="col-6">
+                  Master Bedroom
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('masterBed')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="masterBed">
+                  <button class="btn btn-link" (click)="addRoom('masterBed')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  Bedroom
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('bedroom')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="bedroom">
+                  <button class="btn btn-link" (click)="addRoom('bedroom')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row align-items-center mt-2">
+                <div class="col-6">
+                  Dining Room
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('diningRoom')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="diningRoom">
+                  <button class="btn btn-link" (click)="addRoom('diningRoom')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row align-items-center mt-2">
+                <div class="col-6">
+                  Kitchen
+                </div>
+                <div class="col-6 d-flex flex-row">
+                  <button class="btn btn-link" (click)="removeRoom('kitchen')">
+                    <i-feather name="minus"></i-feather>
+                  </button>
+                  <input type="number" min="0" class="form-control" formControlName="kitchen">
+                  <button class="btn btn-link" (click)="addRoom('kitchen')">
+                    <i-feather name="plus"></i-feather>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h6 class="mt-4">Step 3: Add Appliances Info</h6>
+          <p *ngIf="getRoomList(energyUsageForm).length === 0">No appliances selected.</p>
+          <ng-container formArrayName="roomList" *ngFor="let room of getRoomList(energyUsageForm);index as i">
+            <div [formGroupName]="i" class="card" [ngClass]="{'mt-3': i !== 0}">
+              <div class="card-body">
+                <h6>{{ room.value.title | titlecase }} {{ i+1 }}</h6>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="row align-items-center">
+                      <div class="col-5">
+                        Air Conditioner
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'aircond', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="aircond">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'aircond', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Fan
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'fan', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="fan">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'fan', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Light
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'light', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="light">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'light', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        PC
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'pc', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="pc">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'pc', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="row align-items-center">
+                      <div class="col-5">
+                        TV
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'tv', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="tv">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'tv', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Phone Charger
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'phoneCharger', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="phoneCharger">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'phoneCharger', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Fridge
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'fridge', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="fridge">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'fridge', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="row align-items-center">
+                      <div class="col-5">
+                        Microwave
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'microwave', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="microwave">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'microwave', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Rice cooker
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'riceCooker', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="riceCooker">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'riceCooker', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row align-items-center mt-2">
+                      <div class="col-5">
+                        Washing Machine
+                      </div>
+                      <div class="col-7 d-flex flex-row pl-0">
+                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'washingMachine', i)">
+                          <i-feather name="minus"></i-feather>
+                        </button>
+                        <input type="number" min="0" class="form-control" formControlName="washingMachine">
+                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'washingMachine', i)">
+                          <i-feather name="plus"></i-feather>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <h6 class="mt-4">Step 4: Total Appliances & Result</h6>
+
+          <div class="card">
+            <div class="card-body p-0">
+
+              <table class="table table-striped mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Appliances</th>
+                    <th scope="col">Number of Appliances</th>
+                    <th scope="col">Usage per day (hours)</th>
+                    <th scope="col">Number of days used per month</th>
+                    <th scope="col">Watts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="getTotalCount('aircond') > 0">
+                    <td>Air Conditioner</td>
+                    <td>{{ getTotalCount('aircond') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="aircondUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="aircondDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="aircondWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('fan') > 0">
+                    <td>Fan</td>
+                    <td>{{ getTotalCount('fan') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fanUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fanDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fanWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('light') > 0">
+                    <td>Light</td>
+                    <td>{{ getTotalCount('light') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="lightUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="lightDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="lightWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('pc') > 0">
+                    <td>PC</td>
+                    <td>{{ getTotalCount('pc') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="pcUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="pcDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="pcWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('tv') > 0">
+                    <td>TV</td>
+                    <td>{{ getTotalCount('tv') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="tvUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="tvDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="tvWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('phoneCharger') > 0">
+                    <td>Phone Charger</td>
+                    <td>{{ getTotalCount('phoneCharger') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="phoneChargerUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="phoneChargerDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="phoneChargerWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('fridge') > 0">
+                    <td>Fridge</td>
+                    <td>{{ getTotalCount('fridge') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fridgeUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fridgeDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="fridgeWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('microwave') > 0">
+                    <td>Microwave</td>
+                    <td>{{ getTotalCount('microwave') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="microwaveUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="microwaveDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="microwaveWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('riceCooker') > 0">
+                    <td>Rice Cooker</td>
+                    <td>{{ getTotalCount('riceCooker') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="riceCookerUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="riceCookerDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="riceCookerWatts">
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalCount('washingMachine') > 0">
+                    <td>Washing Machine</td>
+                    <td>{{ getTotalCount('washingMachine') }}</td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="washingMachineUsage">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="washingMachineDays">
+                    </td>
+                    <td>
+                      <input type="number" class="form-control" min="0" formControlName="washingMachineWatts">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- <div class="row">
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Air Conditioner
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('aircond') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Fan
+                    </div>
+                    <div class="col-sm-6">
+                        {{ getTotalCount('fan') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Light
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('light') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      PC
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('pc') }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      TV
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('tv') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Phone Charger
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('phoneCharger') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Fridge
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('fridge') }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Microwave
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('microwave') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Rice Cooker
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('riceCooker') }}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      Washing Machine
+                    </div>
+                    <div class="col-sm-6">
+                      {{ getTotalCount('washingMachine') }}
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+          <h5 class="mt-4">Total Monthly Usage: <span class="text-success">{{ totalUsage | currency:'RM' }}</span></h5>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
