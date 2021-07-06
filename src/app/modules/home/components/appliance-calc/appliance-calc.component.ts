@@ -8,10 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ApplianceCalcComponent implements OnInit {
   applianceCalcForm: FormGroup;
-  estimateUsage: number = 0;
-  estimateCharge: number = 0;
   estimateUsageMonth: number = 0;
   submitted: boolean = false;
+  error: string = '';
 
   constructor(private fb: FormBuilder) { }
 
@@ -26,8 +25,15 @@ export class ApplianceCalcComponent implements OnInit {
 
   calculate() {
     this.submitted = true;
+    this.estimateUsageMonth = 0;
+    this.error = '';
+    
     if(this.applianceCalcForm.valid) {
+      this.estimateUsageMonth += this.applianceCalcForm.value.usagePerDay * this.applianceCalcForm.value.days * this.applianceCalcForm.value.tariff * (this.applianceCalcForm.value.wattage/1000);
 
+      if(this.estimateUsageMonth < 0) {
+        this.error = 'Please enter a positive value.'
+      }
     }
   }
 

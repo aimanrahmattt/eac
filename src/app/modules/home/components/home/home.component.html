@@ -10,7 +10,7 @@
           <a class="nav-link" href="#energyUsage" (click)="selectedMenu = 'energy-usage'">Energy Usage Calculator</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Energy Saving Tips</a>
+          <a class="nav-link" href="#savingTips" (click)="selectedMenu = 'saving-tips'">Energy Saving Tips</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#applCalc" (click)="selectedMenu = 'appliance-calc'">Appliance Calculator</a>
@@ -25,29 +25,17 @@
     <ngb-carousel>
       <ng-template ngbSlide>
         <div class="picsum-img-wrapper">
-          <img src="assets/images/carousel1.jpeg" alt="Random first slide" width="100%">
-        </div>
-        <div class="carousel-caption">
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <img src="assets/images/carousel11.jpg" alt="Random first slide" width="100%">
         </div>
       </ng-template>
       <ng-template ngbSlide>
         <div class="picsum-img-wrapper">
-          <img src="assets/images/carousel2.jpeg" alt="Random second slide" width="100%">
-        </div>
-        <div class="carousel-caption">
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <img src="assets/images/carousel22.jpg" alt="Random second slide" width="100%">
         </div>
       </ng-template>
       <ng-template ngbSlide>
         <div class="picsum-img-wrapper">
-          <img src="assets/images/carousel3.jpeg" alt="Random third slide" width="100%">
-        </div>
-        <div class="carousel-caption">
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          <img src="assets/images/carousel33.jpg" alt="Random third slide" width="100%">
         </div>
       </ng-template>
     </ngb-carousel>
@@ -65,7 +53,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card">
+        <div class="card pointer" (click)="menuClicked('saving-tips', '#savingTips')">
           <div class="card-body">
             <h5 class="card-title mb-0">Energy Saving Tips</h5>
           </div>
@@ -84,4 +72,5 @@
 </div>
 
 <app-energy-usage-calc *ngIf="selectedMenu === 'energy-usage'" id="energyUsage"></app-energy-usage-calc>
+<app-saving-tips *ngIf="selectedMenu === 'saving-tips'" id="savingTips"></app-saving-tips>
 <app-appliance-calc *ngIf="selectedMenu === 'appliance-calc'" id="applCalc"></app-appliance-calc>

@@ -5,13 +5,15 @@ import { HomeRoutingModule } from './home.routes';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EnergyUsageCalcComponent } from './components/energy-usage-calc/energy-usage-calc.component';
 import { ApplianceCalcComponent } from './components/appliance-calc/appliance-calc.component';
+import { SavingTipsComponent } from './components/saving-tips/saving-tips.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     EnergyUsageCalcComponent,
-    ApplianceCalcComponent
+    ApplianceCalcComponent,
+    SavingTipsComponent
   ],
   imports: [
     CommonModule,

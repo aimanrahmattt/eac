@@ -10,12 +10,14 @@ export class EnergyUsageCalcComponent implements OnInit {
   energyUsageForm: FormGroup;
   selectedRooms = [];
   totalUsage:number = 0;
+  submitted: boolean = false;
+  error: string = '';
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.energyUsageForm = this.fb.group({
-      houseType: ['', Validators.required],
+      houseType: [''],
       roomList: this.fb.array([]),
       livingRoom: [0],
       bathroom: [0],
@@ -113,7 +115,85 @@ export class EnergyUsageCalcComponent implements OnInit {
   getTotalCount(type) {
     let totalItems = this.energyUsageForm.get('roomList')['controls'].map(room => room.get(type).value );
     return totalItems.reduce((a, b) => a+b, 0);
-    
+  }
+
+  calculate() {
+    this.submitted = true;
+
+    if(this.energyUsageForm.valid) {
+      this.totalUsage = 0;
+      this.error = '';
+
+      if(this.getTotalCount('aircond') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('aircond'), this.energyUsageForm.value.aircondUsage, this.energyUsageForm.value.aircondDays, this.energyUsageForm.value.aircondWatts);
+      }
+
+      if(this.getTotalCount('fan') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('fan'), this.energyUsageForm.value.fanUsage, this.energyUsageForm.value.fanDays, this.energyUsageForm.value.fanWatts);
+      }
+
+      if(this.getTotalCount('light') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('light'), this.energyUsageForm.value.lightUsage, this.energyUsageForm.value.lightDays, this.energyUsageForm.value.lightWatts);
+      }
+
+      if(this.getTotalCount('pc') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('pc'), this.energyUsageForm.value.pcUsage, this.energyUsageForm.value.pcDays, this.energyUsageForm.value.pcWatts);
+      }
+
+      if(this.getTotalCount('tv') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('tv'), this.energyUsageForm.value.tvUsage, this.energyUsageForm.value.tvDays, this.energyUsageForm.value.tvWatts);
+      }
+
+      if(this.getTotalCount('phoneCharger') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('phoneCharger'), this.energyUsageForm.value.phoneChargerUsage, this.energyUsageForm.value.phoneChargerDays, this.energyUsageForm.value.phoneChargerWatts);
+      }
+
+      if(this.getTotalCount('fridge') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('fridge'), this.energyUsageForm.value.fridgeUsage, this.energyUsageForm.value.fridgeDays, this.energyUsageForm.value.fridgeWatts);
+      }
+
+      if(this.getTotalCount('microwave') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('microwave'), this.energyUsageForm.value.microwaveUsage, this.energyUsageForm.value.microwaveDays, this.energyUsageForm.value.microwaveWatts);
+      }
+
+      if(this.getTotalCount('riceCooker') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('riceCooker'), this.energyUsageForm.value.riceCookerUsage, this.energyUsageForm.value.riceCookerDays, this.energyUsageForm.value.riceCookerWatts);
+      }
+
+      if(this.getTotalCount('washingMachine') > 0) {
+        this.totalUsage += this.calculateTariff(this.getTotalCount('washingMachine'), this.energyUsageForm.value.washingMachineUsage, this.energyUsageForm.value.washingMachineDays, this.energyUsageForm.value.washingMachineWatts);
+      }
+
+      if(this.totalUsage < 0) {
+        this.error = 'Please enter a positive value.';
+        this.totalUsage = 0;
+
+        setTimeout(() => {
+          this.scrollToTarget('.alert-danger');
+        }, 250);
+      } else if(this.totalUsage === 0) {
+        this.error = 'Dont leave the input field empty.';
+
+        setTimeout(() => {
+          this.scrollToTarget('.alert-danger');
+        }, 250);
+      }
+    }
+  }
+
+  calculateTariff(numberAppliance, hour, day, watts) {
+    return numberAppliance * hour * day * 0.3166 * (watts/1000) ;
+  }
+
+  scrollToTarget(target): void {
+    const element = document.querySelector(target);
+    this.scrollTo(element);
+  }
+
+  scrollTo(el: Element): void {
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
 }

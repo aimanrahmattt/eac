@@ -7,11 +7,13 @@
     </div>
 
     <form [formGroup]="applianceCalcForm" (ngSubmit)="calculate()">
-      <div *ngIf="submitted" class="alert alert-success mt-4" role="alert">
-       <p>Estimated Usage Per Day (kWh): {{ estimateUsage }}</p>
-       <p>Estimated Charge Per Day (RM): {{ estimateCharge }}</p>
-       <p class="mb-0">Estimated Charge Per Month (RM): {{ estimateUsageMonth }}</p>
+      <div *ngIf="submitted && !error" class="alert alert-success mt-4" role="alert">
+       <p class="mb-0">Estimated Charge Per Month: {{ estimateUsageMonth | currency:'RM':'code':'.2-2' }}</p>
       </div>
+
+      <div *ngIf="submitted && error" class="alert alert-danger mt-4" role="alert">
+        <p class="mb-0">{{ error }}</p>
+       </div>
 
       <div class="row mt-4">
         <div class="col">

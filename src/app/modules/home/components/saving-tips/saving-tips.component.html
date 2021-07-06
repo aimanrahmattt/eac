@@ -1,0 +1,248 @@
+<div class="row pt-4 pb-5 bg-light justify-content-center">
+  <div class="col-md-8">
+    <div class="row text-center justify-content-center">
+      <div class="col-md-6">
+        <h2>Energy Saving Tips</h2>
+
+        <form [formGroup]="savingForm">
+          <div class="form-group mt-4">
+            <select class="form-control" formControlName="info">
+              <option value="general">General</option>
+              <option value="aircond">Air Conditioner</option>
+              <option value="computer">Computer</option>
+              <option value="fridge">Fridge</option>
+              <option value="iron">Iron</option>
+              <option value="kettle">Kettle</option>
+              <option value="lighting">Lighting</option>
+              <option value="microwave">Microwave</option>
+              <option value="washingMachine">Washing Machine</option>
+              <option value="waterHeater">Water Heater</option>
+              <option value="waterPump">Water Pump</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <ng-container *ngIf="savingForm.value.info === 'general'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Make contact with your family.</h6>
+              <p class="mb-0">Begin by turning off all electronic devices.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Allow it to dry in the sun.</h6>
+              <p class="mb-0">If you skip the dryer, your clothes will keep fresher and last longer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'aircond'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>It will keep the cool in if you keep it sealed.</h6>
+              <p class="mb-0">To cool your room faster, close your doors and windows when using the AC.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Don't suffocate your skin with dehydration.</h6>
+              <p class="mb-0">Before going to bed, set your air conditioner timer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>The world needs to slow down.</h6>
+              <p class="mb-0">Set the temperature of your AC to 24°C</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Inhale the fresher air.</h6>
+              <p class="mb-0">To get the most out of your air conditioner, clean the filter on a regular basis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'computer'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Set some time to unplug.</h6>
+              <p class="mb-0">Your computer, like you, requires a break.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'fridge'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>For the environment, less is more.</h6>
+              <p class="mb-0">A fridge that is not cluttered enhances ventilation, which mean it runs more efficiently.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Make the decision to protect the environment.</h6>
+              <p class="mb-0">Choose energy-efficient electrical appliances with a 5-star rating.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'iron'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Save your time and money by conserving energy.</h6>
+              <p class="mb-0">All of your garments will be ironed at the same time.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Less wrinkling means less waster.</h6>
+              <p class="mb-0">If you fold your clothing as soon as you take them off the hanger, you won't have to iron them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'kettle'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Keep it clean and efficient.</h6>
+              <p class="mb-0">For more efficient boiling, clean the heating element of your electric kettle on a regular basis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'lighting'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Ensure the safety of your loved ones.</h6>
+              <p class="mb-0">Use motion-activated lighting.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>A restful night's sleep is within your grasp.</h6>
+              <p class="mb-0">Dimmer switches aid in the brain's relaxation in preparation for sleep.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Natural light is more beneficial to your eyes.</h6>
+              <p class="mb-0">During the day, turn off the light.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Green is in.</h6>
+              <p class="mb-0">LED bulbs have a longer life span.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'microwave'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Before heating it up, defrost it.</h6>
+              <p class="mb-0">Reduce the amount of time you spend in the over by thawing your frozen foods ahead of time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'washingMachine'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Chores can be enjoyable.</h6>
+              <p class="mb-0">To make a bigger load, have the youngsters gather their own laundry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'waterHeater'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Energized by a small amount of energy.</h6>
+              <p class="mb-0">Take a cold water to re-energize yourself without wasting energy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="savingForm.value.info === 'waterPump'">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card card-height">
+            <div class="card-body">
+              <h6>Pumping it correctly keeps wastages hidden.</h6>
+              <p class="mb-0">To save money, use the appropriate pump for the size of the pond or aquarium.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

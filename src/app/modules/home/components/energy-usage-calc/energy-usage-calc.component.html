@@ -4,10 +4,14 @@
       <div class="col">
         <h2>Energy Usage Calculator</h2>
         <h5>Total Monthly Usage: <span class="text-success">{{ totalUsage | currency:'RM' }}</span></h5>
+
+        <div *ngIf="submitted && error" class="alert alert-danger mt-4" role="alert" id="alertDanger">
+          <p class="mb-0">{{ error }}</p>
+        </div>
       </div>
     </div>
 
-    <form [formGroup]="energyUsageForm">
+    <form [formGroup]="energyUsageForm" (ngSubmit)="calculate()">
       <div class="row mt-4">
         <div class="col">
 
@@ -35,11 +39,11 @@
                   Living Room
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('livingRoom')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('livingRoom')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="livingRoom">
-                  <button class="btn btn-link" (click)="addRoom('livingRoom')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('livingRoom')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -50,11 +54,11 @@
                   Bathroom
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('bathroom')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('bathroom')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="bathroom">
-                  <button class="btn btn-link" (click)="addRoom('bathroom')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('bathroom')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -65,11 +69,11 @@
                   Master Bedroom
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('masterBed')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('masterBed')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="masterBed">
-                  <button class="btn btn-link" (click)="addRoom('masterBed')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('masterBed')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -82,11 +86,11 @@
                   Bedroom
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('bedroom')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('bedroom')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="bedroom">
-                  <button class="btn btn-link" (click)="addRoom('bedroom')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('bedroom')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -97,11 +101,11 @@
                   Dining Room
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('diningRoom')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('diningRoom')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="diningRoom">
-                  <button class="btn btn-link" (click)="addRoom('diningRoom')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('diningRoom')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -112,11 +116,11 @@
                   Kitchen
                 </div>
                 <div class="col-6 d-flex flex-row">
-                  <button class="btn btn-link" (click)="removeRoom('kitchen')">
+                  <button type="button" class="btn btn-link" (click)="removeRoom('kitchen')">
                     <i-feather name="minus"></i-feather>
                   </button>
                   <input type="number" min="0" class="form-control" formControlName="kitchen">
-                  <button class="btn btn-link" (click)="addRoom('kitchen')">
+                  <button type="button" class="btn btn-link" (click)="addRoom('kitchen')">
                     <i-feather name="plus"></i-feather>
                   </button>
                 </div>
@@ -137,11 +141,11 @@
                         Air Conditioner
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'aircond', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'aircond', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="aircond">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'aircond', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'aircond', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -152,11 +156,11 @@
                         Fan
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'fan', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'fan', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="fan">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'fan', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'fan', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -167,11 +171,11 @@
                         Light
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'light', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'light', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="light">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'light', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'light', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -182,11 +186,11 @@
                         PC
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'pc', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'pc', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="pc">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'pc', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'pc', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -198,11 +202,11 @@
                         TV
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'tv', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'tv', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="tv">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'tv', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'tv', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -213,11 +217,11 @@
                         Phone Charger
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'phoneCharger', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'phoneCharger', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="phoneCharger">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'phoneCharger', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'phoneCharger', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -228,11 +232,11 @@
                         Fridge
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'fridge', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'fridge', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="fridge">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'fridge', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'fridge', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -244,11 +248,11 @@
                         Microwave
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'microwave', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'microwave', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="microwave">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'microwave', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'microwave', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -259,11 +263,11 @@
                         Rice cooker
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'riceCooker', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'riceCooker', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="riceCooker">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'riceCooker', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'riceCooker', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -274,11 +278,11 @@
                         Washing Machine
                       </div>
                       <div class="col-7 d-flex flex-row pl-0">
-                        <button class="btn btn-link" (click)="decrementItem(room.value.type, 'washingMachine', i)">
+                        <button type="button" class="btn btn-link" (click)="decrementItem(room.value.type, 'washingMachine', i)">
                           <i-feather name="minus"></i-feather>
                         </button>
                         <input type="number" min="0" class="form-control" formControlName="washingMachine">
-                        <button class="btn btn-link" (click)="incrementItem(room.value.type, 'washingMachine', i)">
+                        <button type="button" class="btn btn-link" (click)="incrementItem(room.value.type, 'washingMachine', i)">
                           <i-feather name="plus"></i-feather>
                         </button>
                       </div>
@@ -437,105 +441,10 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- <div class="row">
-                <div class="col-md-4">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Air Conditioner
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('aircond') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Fan
-                    </div>
-                    <div class="col-sm-6">
-                        {{ getTotalCount('fan') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Light
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('light') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      PC
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('pc') }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      TV
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('tv') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Phone Charger
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('phoneCharger') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Fridge
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('fridge') }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Microwave
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('microwave') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Rice Cooker
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('riceCooker') }}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      Washing Machine
-                    </div>
-                    <div class="col-sm-6">
-                      {{ getTotalCount('washingMachine') }}
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
 
+          <button type="submit" class="btn btn-info mt-4">Calculate</button>
           <h5 class="mt-4">Total Monthly Usage: <span class="text-success">{{ totalUsage | currency:'RM' }}</span></h5>
 
         </div>
